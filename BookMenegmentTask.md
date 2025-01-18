@@ -30,8 +30,10 @@
   * id
   * title
   * author
-  * publishedDate
-  * isbn
+  * publicationDate
+  * genre
+  * availability
+  * pageCount
 
 
 Настройте репозиторий BookRepository для работы с базой данных.
