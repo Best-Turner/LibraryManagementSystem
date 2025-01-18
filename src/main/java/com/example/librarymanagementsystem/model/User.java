@@ -1,16 +1,22 @@
 package com.example.librarymanagementsystem.model;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String firstname;
     private String lastname;
     private String password;
     private Date birthday;
     private Role role;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Book> readsBooks;
 
 

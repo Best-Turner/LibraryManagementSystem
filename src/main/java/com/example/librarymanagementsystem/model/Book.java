@@ -1,18 +1,27 @@
 package com.example.librarymanagementsystem.model;
 
+import jakarta.persistence.*;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class Book {
+@Entity
+@Table(name = "books")
 
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
+    @ManyToMany(mappedBy = "works")
     private List<Author> author;
     private Date publicationDate;
     private Genre genre;
     private boolean availability;
     private int pageCount;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Book() {
