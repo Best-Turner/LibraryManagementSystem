@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+</head>
+
+<body>
+<h2>Информация о книге</h2>
+<div th:object="${book}" th:with="isAvailable = ${book.availability}">
+    <span th:text="${book.id}"></span><br>
+    <span th:text="${book.title}"></span><br>
+    <div th:each="author :${book.author}">
+        <span th:text="${author.firstname}"></span>
+        <span th:text="${author.lastname}"></span>
+    </div>
+    <div th:if="${isAvailable}">
+        <p style="color: green"> книга свободна</p>
+    </div>
+    <div th:unless="${isAvailable}">
+        <p style="color: red"> книга занята</p>
+    </div>
+</div>
+</body>
+</html>

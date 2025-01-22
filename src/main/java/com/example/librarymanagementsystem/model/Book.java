@@ -16,6 +16,7 @@ public class Book {
     private String title;
     @ManyToMany(mappedBy = "works")
     private List<Author> author;
+
     private Date publicationDate;
     private Genre genre;
     private boolean availability;
@@ -116,7 +117,7 @@ public class Book {
     }
 
     public enum Genre {
-        DRAMA, SATIRE, POETRY, HORROR, FANTASY, FAIRY, TALES, SCIENCE, OTHER;
+        DRAMA, SATIRE, POETRY, HORROR, FANTASY, FAIRY, TALES, SCIENCE, ROMAN, OTHER;
 
         public static Genre fromString(String line) {
             return Arrays.stream(values())

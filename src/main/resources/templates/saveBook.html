@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page for save book</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/books}" th:object="${book}">
+    <label for="title">Введите название книги:</label>
+    <input type="text" th:field="*{title}" id="title"><br>
+
+    <label for="author">Введите автора книги:</label>
+    <input type="text" th:field="*{author}" id="author"><br>
+
+<!--    <label for="publicationDate">Введите дату публикации:</label>-->
+<!--    <input type="date" th:field="*{publicationDate}" id="publicationDate"><br>-->
+
+    <label for="drama">Выберете жанр:</label>
+    <select name="genre" id="drama">
+        <div th:each="gen : ${genres}">
+            <option th:value="${gen}" th:text="${gen}"></option>
+        </div>
+    </select><br>
+
+    <label for="countPage">Введите количество страниц:</label>
+    <input type="number" th:field="*{pageCount}" id="countPage"><br>
+
+    <div>
+        <label>Сделать доступной сразу?</label><br>
+        <label for="radioYes">ДА</label>
+        <input type="radio" value="true" name="availability" id="radioYes" checked>
+        <label for="radioNo">НЕТ</label>
+        <input type="radio" value="false" name="availability" id="radioNo">
+    </div>
+    <input type="submit" value="Отправить!">
+</form>
+</body>
+</html>
