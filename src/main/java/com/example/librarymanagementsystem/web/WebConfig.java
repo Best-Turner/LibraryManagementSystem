@@ -1,29 +1,28 @@
 package com.example.librarymanagementsystem.web;
 
-import com.example.librarymanagementsystem.model.Author;
-import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.repository.AuthorRepository;
-import com.example.librarymanagementsystem.repository.BookRepository;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Optional;
-
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    @Autowired
+    private AuthorRepository repository;
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");
     }
 
-//    @Bean
+//    @Override
+//    public void addFormatters(FormatterRegistry registry) {
+//        registry.addConverter(new AuthorByIdConverter(repository));
+//    }
+
+    //    @Bean
 //    public CommandLineRunner commandLineRunner(BookRepository bookRepository,
 //                                               AuthorRepository authorRepository) throws ParseException {
 //

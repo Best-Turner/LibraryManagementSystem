@@ -2,6 +2,7 @@ package com.example.librarymanagementsystem.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -26,12 +27,13 @@ public class Book {
     private User user;
 
     public Book() {
+        author = new ArrayList<>();
     }
 
-    public Book(long id, String title, List<Author> author, Date publicationDate, Genre genre, boolean availability, int pageCount) {
+    public Book(long id, String title, Date publicationDate, Genre genre, boolean availability, int pageCount) {
+        super();
         this.id = id;
         this.title = title;
-        this.author = author;
         this.publicationDate = publicationDate;
         this.genre = genre;
         this.availability = availability;
