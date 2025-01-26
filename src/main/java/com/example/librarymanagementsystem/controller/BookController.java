@@ -4,20 +4,19 @@ import com.example.librarymanagementsystem.model.Author;
 import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.repository.AuthorRepository;
 import com.example.librarymanagementsystem.repository.BookRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-@Slf4j
+
 @Controller
 @RequestMapping("/books")
 @SessionAttributes(names = "savedBook")
 public class BookController {
 
     private final BookRepository bookRepository;
-    private  final AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
     @Autowired
     public BookController(BookRepository bookRepository, AuthorRepository authorRepository) {
@@ -27,8 +26,14 @@ public class BookController {
 
 
     @GetMapping
-    public String showBooks(@RequestParam(value = "save", required = false) String value, Model model) {
+    public String showBooks(@RequestParam(value = "save", required = false) String value,
+                            @SessionAttribute(value = "savedBook", required = false) Book book,
+                            Model model) {
         if (value != null) {
+            if (book == null) {
+                book = new Book();
+                model.addAttribute("savedBook", book);
+            }
             return "saveBook";
         }
         model.addAttribute("books", bookRepository.findAll());
@@ -43,15 +48,15 @@ public class BookController {
 
     @GetMapping("/{id}")
     public String showBook(@PathVariable long id, Model model) {
-        Book book = bookRepository.findById(id).get();
-        model.addAttribute("book", book);
+        model.addAttribute("book", bookRepository.findById(id).get());
         return "bookDetails";
     }
 
     @PostMapping
-    public String processBook(@ModelAttribute Book book, SessionStatus status) {
+    public String processBook(@ModelAttribute("savedBook") Book book,
+                              SessionStatus status) {
         System.out.println(book);
-        System.out.println("Книга сохранена");
+        bookRepository.save(book);
         status.setComplete();
         return "redirect:/";
     }
@@ -64,19 +69,8 @@ public class BookController {
     }
 
     @PostMapping("/appoint")
-    public String appointAuthors( @ModelAttribute("savedBook") Book book) {
-        //System.out.println(author);
-        //book.setAuthor(Collections.singletonList(author));
-        System.out.println(book);
+    public String appointAuthors(@ModelAttribute("savedBook") Book book, Model model) {
+        model.addAttribute("savedBook", book);
         return "redirect:/books?save";
     }
-
-
-    @ModelAttribute
-    private void savedBook(Model model) {
-        Book book = new Book();
-        book.setTitle("Title");
-        model.addAttribute("savedBook", book);
-    }
-
 }

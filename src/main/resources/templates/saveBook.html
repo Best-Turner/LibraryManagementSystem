@@ -6,15 +6,16 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/books}" th:object="${savedBook}">
-    <label for="title">Введите название книги:</label>
-    <input type="text" th:field="*{title}" th:value="${savedBook.title}" id="title"><br>
+
+    <label>Введите название книги:</label>
+    <input type="text" th:field="*{title}"><br>
 
     <label for="author">Выберете автора книги:</label>
     <a th:href="@{/books/appoint}" id="author">Назначить автора
     </a><br>
 
-    <!--    <label for="publicationDate">Введите дату публикации:</label>-->
-    <!--    <input type="date" th:field="*{publicationDate}" id="publicationDate"><br>-->
+        <label for="publicationDate">Введите дату публикации:</label>
+        <input type="date" th:field="*{publicationDate}" id="publicationDate" name="publicationDate"><br>
 
     <label for="drama">Выберете жанр:</label>
     <select name="genre" id="drama">
@@ -23,9 +24,13 @@
         </div>
     </select><br>
 
-    <label for="countPage">Введите количество страниц:</label>
-    <input type="number" th:field="*{pageCount}" id="countPage"><br>
+    <!--    <div th:with="countPage=${savedBook.pageCount ==0}">-->
+    <!--        <label>Введите количество страниц:</label>-->
+    <!--        <input th:if="countPage" type="number" th:field="*{pageCount}"><br>-->
+    <!--        <input th:unless="countPage" type="number" th:value="${savedBook.pageCount}" th:field="*{pageCount}"><br>-->
+    <!--    </div>-->
 
+    <input type="number" th:field="*{pageCount}"><br>
     <div>
         <label>Сделать доступной сразу?</label><br>
         <label for="radioYes">ДА</label>

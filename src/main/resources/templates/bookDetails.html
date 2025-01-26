@@ -8,18 +8,30 @@
 <body>
 <h2>Информация о книге</h2>
 <div th:object="${book}" th:with="isAvailable = ${book.availability}">
+    <strong>ID книги:</strong>
     <span th:text="${book.id}"></span><br>
+    <strong>Название книги:</strong>
     <span th:text="${book.title}"></span><br>
-    <div th:each="author :${book.author}">
+    <strong>Автор книги:</strong>
+    <span th:each="author :${book.author}">
         <span th:text="${author.firstname}"></span>
         <span th:text="${author.lastname}"></span>
-    </div>
+    </span><br>
+    <strong>Дата публикации:</strong>
+    <span th:text="${book.publicationDate}"></span>
     <div th:if="${isAvailable}">
-        <p style="color: green"> книга свободна</p>
+        <h3 style="color: green">книга свободна</h3>
+        <form action="">
+            <label>Назнчить книгу</label>
+            <input type="text">
+        </form>
     </div>
     <div th:unless="${isAvailable}">
-        <p style="color: red"> книга занята</p>
+        <h3 style="color: red"> книга занята</h3>
     </div>
 </div>
+<a href="/books">
+    <button>К списку книг</button>
+</a>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.example.librarymanagementsystem.web;
+package com.example.librarymanagementsystem.web.converter;
 
 import com.example.librarymanagementsystem.model.Author;
 import com.example.librarymanagementsystem.repository.AuthorRepository;

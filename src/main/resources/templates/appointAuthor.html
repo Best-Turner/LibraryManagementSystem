@@ -9,7 +9,8 @@
     <h3 style="color: blue">Все доступные авторы:</h3>
     <div th:each="owner : ${authors}">
         <label>
-            <input  type="checkbox" th:field="*{author}" th:value="${owner.id}" name="author" placeholder="Выберете автора"
+            <input  type="checkbox" th:field="*{author}" th:value="${owner.id}" name="author"
+                    placeholder="Выберете автора"
                    th:text="${owner.firstname + ' ' + owner.lastname }"/>
         </label>
     </div>

@@ -2,6 +2,7 @@ package com.example.librarymanagementsystem.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -9,16 +10,20 @@ import java.util.List;
 
 @Entity
 @Table(name = "books")
-
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
-    @ManyToMany(mappedBy = "works")
+    @ManyToMany()
+    @JoinTable(
+            name = "author_book",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
     private List<Author> author;
 
-    private Date publicationDate;
+    private LocalDate publicationDate;
     private Genre genre;
     private boolean availability;
     private int pageCount;
@@ -30,7 +35,7 @@ public class Book {
         author = new ArrayList<>();
     }
 
-    public Book(long id, String title, Date publicationDate, Genre genre, boolean availability, int pageCount) {
+    public Book(long id, String title, LocalDate publicationDate, Genre genre, boolean availability, int pageCount) {
         super();
         this.id = id;
         this.title = title;
@@ -64,11 +69,11 @@ public class Book {
         this.author = author;
     }
 
-    public Date getPublicationDate() {
+    public LocalDate getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(Date publicationDate) {
+    public void setPublicationDate(LocalDate publicationDate) {
         this.publicationDate = publicationDate;
     }
 
