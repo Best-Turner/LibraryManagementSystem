@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Page for save book</title>
+    <title>Именить данные о книге</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/books}" th:object="${savedBook}">
 
-    <label>Введите название книги:</label>
-    <input type="text" th:field="*{title}"><br>
+<h3>Изменить данные о книге</h3>
+<form th:action="@{/books}" th:method="PATCH" th:object="${editBook}">
+
+    <label>Введите новое название книги:</label>
+    <input type="text"  th:value="${editBook.title}" th:field="*{title}"><br>
 
     <label for="author">Выберете автора книги:</label>
     <a th:href="@{/books/appoint}" id="author">Назначить автора
     </a><br>
 
-    <label for="publicationDate">Введите дату публикации:</label>
-    <input type="date" th:field="*{publicationDate}" id="publicationDate" name="publicationDate"><br>
+    <label for="publicationDate">Введите новую дату публикации:</label>
+    <input type="date" th:value="${editBook.publicationDate}" th:field="*{publicationDate}" id="publicationDate" name="publicationDate"><br>
 
     <label for="drama">Выберете жанр:</label>
     <select name="genre" id="drama">

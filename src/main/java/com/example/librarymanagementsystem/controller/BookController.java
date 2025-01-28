@@ -4,11 +4,14 @@ import com.example.librarymanagementsystem.model.Author;
 import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.repository.AuthorRepository;
 import com.example.librarymanagementsystem.repository.BookRepository;
+import com.example.librarymanagementsystem.web.converter.StringToDateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/books")
@@ -72,5 +75,48 @@ public class BookController {
     public String appointAuthors(@ModelAttribute("savedBook") Book book, Model model) {
         model.addAttribute("savedBook", book);
         return "redirect:/books?save";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteBook(@PathVariable long id) {
+        bookRepository.deleteById(id);
+        return "redirect:/books";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable long id, Model model) {
+        Book bookFromDB = bookRepository.findById(id).get();
+        model.addAttribute("editBook", bookFromDB);
+        model.addAttribute("savedBook", bookFromDB);
+        System.out.println("Отобразили форму");
+        return "edit";
+    }
+
+    @PatchMapping()
+    public String editBook(@ModelAttribute Book updatedBook,
+                           @SessionAttribute("savedBook") Book savedBook,
+                           SessionStatus status) {
+        System.out.println("Изменили книгу");
+        if (!updatedBook.getAuthor().isEmpty()) {
+            savedBook.setAuthor(updatedBook.getAuthor());
+        }
+        String newTitle = updatedBook.getTitle();
+        if (newTitle != null && !newTitle.isEmpty()) {
+            savedBook.setTitle(newTitle);
+        }
+        if (!updatedBook.getGenre().toString().isEmpty()) {
+            savedBook.setGenre(updatedBook.getGenre());
+        }
+        if (updatedBook.getPageCount() != 0 && updatedBook.getPageCount() > 0) {
+            savedBook.setPageCount(updatedBook.getPageCount());
+        }
+        if (!updatedBook.getPublicationDate().isEqual(LocalDate.parse(StringToDateConverter.DATE_BY_DEFAULT))) {
+            savedBook.setPublicationDate(updatedBook.getPublicationDate());
+        }
+        savedBook.setAvailability(updatedBook.isAvailability());
+
+        bookRepository.save(savedBook);
+        status.setComplete();
+        return "redirect:/books/" + savedBook.getId();
     }
 }
