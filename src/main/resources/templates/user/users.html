@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<h3>Список пользователей библиотеки</h3>
+<ul>
+    <div th:each="user : ${users}">
+        <li>
+            <a th:href="@{/users/{id}(id=${user.id})}" th:text="${user.firstname + ' ' + user.lastname}"></a>
+        </li>
+    </div>
+</ul>
+<a th:href="@{/users/save}">
+    <button>Добавить нового пользователя</button>
+</a><br/>
+<a th:href="@{/}">
+    <button>На главную</button>
+</a>
+</body>
+</html>

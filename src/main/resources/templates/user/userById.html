@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <style>
+        /* Стили для кнопок */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1>Данные о пользователе:</h1>
+<div th:object="${user}">
+    <dl>
+        <dt><strong>ID:</strong></dt>
+        <dd th:text="*{id}">ID</dd>
+
+        <dt><strong>Имя:</strong></dt>
+        <dd th:text="*{firstname}">FIRSTNAME</dd>
+
+        <dt><strong>Фамилия:</strong></dt>
+        <dd th:text="*{lastname}">LASTNAME</dd>
+
+        <dt><strong>День рождения:</strong></dt>
+        <dd th:text="*{#temporals.format(birthday, 'dd.MM.yyyy')}">BIRTHDAY</dd>
+
+        <dt><strong>Должность:</strong></dt>
+        <dd th:text="*{role}">ROLE</dd>
+    </dl>
+
+    <!-- Кнопка "Изменить данные" -->
+    <a th:href="@{/users/{id}/edit(id=${user.id})}" class="button">Изменить данные</a>
+
+    <!-- Кнопка "Назад" -->
+    <a href="/users" class="button">Назад</a>
+</div>
+</body>
+</html>

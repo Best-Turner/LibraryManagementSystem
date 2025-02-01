@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+</head>
+<body>
+<h1>Edit User</h1>
+<form th:action="@{/users/{id}(id=${user.id})}" th:object="${user}" th:method="PATCH">
+    <div>
+        <strong>Имя:</strong>
+        <input type="text" id="name" th:field="*{firstname}" required/>
+        <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname Error</span>
+    </div>
+    <div>
+        <strong>Фамилия:</strong>
+        <input type="text" th:field="*{lastname}" required/>
+        <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Lastname Error</span>
+    </div>
+    <div>
+        <strong>Дата рождения (формат - дд.ММ.гггг):</strong>
+        <input type="text"  th:value="${#temporals.format(user.birthday, 'dd.MM.yyyy')}"  name="birthday" required/>
+        <span th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Lastname Error</span>
+    </div>
+    <strong>Выбор должности:</strong><br>
+    <select name="role">
+        <div th:each="role: ${roles}">
+            <option th:text="${role.name().equalsIgnoreCase('USER')?'Пользователь':'Администратор'}"
+                    th:value="${role}"></option>
+        </div>
+    </select><br>
+    <button>Сохранить изменения</button>
+</form>
+<a th:href="@{/users/{id}(id=${user.id})}">
+    <button>Назад</button>
+</a>
+</body>
+</html>
