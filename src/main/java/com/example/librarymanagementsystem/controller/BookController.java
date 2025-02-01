@@ -4,7 +4,7 @@ import com.example.librarymanagementsystem.model.Author;
 import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.repository.AuthorRepository;
 import com.example.librarymanagementsystem.repository.BookRepository;
-import com.example.librarymanagementsystem.web.converter.StringToDateConverter;
+import com.example.librarymanagementsystem.web.converter.StringToLocalDateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,10 +37,10 @@ public class BookController {
                 book = new Book();
                 model.addAttribute("savedBook", book);
             }
-            return "saveBook";
+            return "book/saveBook";
         }
         model.addAttribute("books", bookRepository.findAll());
-        return "booksPage";
+        return "book/booksPage";
     }
 
 
@@ -52,13 +52,12 @@ public class BookController {
     @GetMapping("/{id}")
     public String showBook(@PathVariable long id, Model model) {
         model.addAttribute("book", bookRepository.findById(id).get());
-        return "bookDetails";
+        return "book/bookDetails";
     }
 
     @PostMapping
     public String processBook(@ModelAttribute("savedBook") Book book,
                               SessionStatus status) {
-        System.out.println(book);
         bookRepository.save(book);
         status.setComplete();
         return "redirect:/";
@@ -68,7 +67,7 @@ public class BookController {
     public String authors(Model model) {
         model.addAttribute("own", new Author());
         model.addAttribute("authors", authorRepository.findAll());
-        return "appointAuthor";
+        return "book/appointAuthor";
     }
 
     @PostMapping("/appoint")
@@ -89,14 +88,13 @@ public class BookController {
         model.addAttribute("editBook", bookFromDB);
         model.addAttribute("savedBook", bookFromDB);
         System.out.println("Отобразили форму");
-        return "edit";
+        return "book/edit";
     }
 
     @PatchMapping()
     public String editBook(@ModelAttribute Book updatedBook,
                            @SessionAttribute("savedBook") Book savedBook,
                            SessionStatus status) {
-        System.out.println("Изменили книгу");
         if (!updatedBook.getAuthor().isEmpty()) {
             savedBook.setAuthor(updatedBook.getAuthor());
         }
@@ -110,7 +108,7 @@ public class BookController {
         if (updatedBook.getPageCount() != 0 && updatedBook.getPageCount() > 0) {
             savedBook.setPageCount(updatedBook.getPageCount());
         }
-        if (!updatedBook.getPublicationDate().isEqual(LocalDate.parse(StringToDateConverter.DATE_BY_DEFAULT))) {
+        if (!updatedBook.getPublicationDate().isEqual(LocalDate.parse(StringToLocalDateConverter.DATE_BY_DEFAULT))) {
             savedBook.setPublicationDate(updatedBook.getPublicationDate());
         }
         savedBook.setAvailability(updatedBook.isAvailability());

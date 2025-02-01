@@ -2,7 +2,6 @@ package com.example.librarymanagementsystem.controller;
 
 import com.example.librarymanagementsystem.model.User;
 import com.example.librarymanagementsystem.repository.UserRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +24,13 @@ public class UserController {
     @GetMapping
     public String getUsers(Model model) {
         model.addAttribute("users", userRepository.findAll());
-        return "users";
+        return "user/users";
     }
 
     @GetMapping("/{id}")
     public String userById(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userRepository.findById(id).get());
-        return "userById";
+        return "user/userById";
     }
 
     @PostMapping
@@ -40,10 +39,10 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/save")
     public String showUserForm(Model model) {
         model.addAttribute("newUser", new User());
-        return "saveUser";
+        return "user/saveUser";
     }
 
     @DeleteMapping("/{id}")
@@ -56,20 +55,23 @@ public class UserController {
     public String showEditForm(@PathVariable("id") long id, Model model) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
+            model.addAttribute("roles", User.Role.values());
             model.addAttribute("user", user.get()); // Передаем пользователя в форму
-            return "editUser"; // Возвращаем страницу редактирования
+            return "user/editUser"; // Возвращаем страницу редактирования
         } else {
             return "redirect:/users"; // Если пользователь не найден, перенаправляем на список пользователей
         }
     }
 
-    @PostMapping("/{id}/edit")
+    @PatchMapping("/{id}")
     public String updateUser(@PathVariable("id") long id,
-                             @Valid @ModelAttribute("user") User updatedUser,
+                             @ModelAttribute("user") User updatedUser,
                              BindingResult result) {
-        if (result.hasErrors()) {
-            return "editUser"; // Если есть ошибки валидации, возвращаем форму с ошибками
-        }
+//        if (result.hasErrors()) {
+//            System.out.println("Есть ошибки при изменении данных о пользовтеле");
+//            return "editUser"; // Если есть ошибки валидации, возвращаем форму с ошибками
+//        }
+        System.out.println("Пользователь который пришел из формы " + updatedUser);
 
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isPresent()) {
@@ -80,6 +82,7 @@ public class UserController {
             user.setBirthday(updatedUser.getBirthday());
             user.setRole(updatedUser.getRole());
             userRepository.save(user);
+            System.out.println("Изменили пользователя" + user);
         }
         return "redirect:/users";
     }
