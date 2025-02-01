@@ -2,8 +2,8 @@ package com.example.librarymanagementsystem.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 @Entity
 @Table(name = "users")
@@ -13,8 +13,9 @@ public class User {
     private long id;
     private String firstname;
     private String lastname;
+    private String email;
     private String password;
-    private Date birthday;
+    private LocalDate birthday;
     private Role role;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Book> readsBooks;
@@ -22,17 +23,18 @@ public class User {
 
     public User() {
         this.readsBooks = new ArrayList<>();
+        this.role = Role.USER;
     }
 
-    public User(long id, String firstname, String lastname, String password, Date birthday, Role role) {
-        super();
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.password = password;
-        this.birthday = birthday;
-        this.role = role;
-    }
+//    public User(long id, String firstname, String lastname, String password, LocalDate birthday, Role role) {
+//        super();
+//        this.id = id;
+//        this.firstname = firstname;
+//        this.lastname = lastname;
+//        this.password = password;
+//        this.birthday = birthday;
+//        this.role = role;
+//    }
 
     public long getId() {
         return id;
@@ -66,11 +68,11 @@ public class User {
         this.password = password;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
@@ -84,6 +86,14 @@ public class User {
 
     public List<Book> getReadsBooks() {
         return readsBooks;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setReadsBooks(List<Book> readsBooks) {

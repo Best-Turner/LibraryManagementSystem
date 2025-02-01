@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appoint author</title>
+</head>
+<body>
+<form th:action="@{/books/appoint}" th:method="POST" th:object="${savedBook}">
+    <h3 style="color: blue">Все доступные авторы:</h3>
+    <div th:each="owner : ${authors}">
+        <label>
+            <input  type="checkbox" th:field="*{author}" th:value="${owner.id}" name="author"
+                    placeholder="Выберете автора"
+                   th:text="${owner.firstname + ' ' + owner.lastname }"/>
+        </label>
+    </div>
+    <button>Назначить автора</button>
+</form>
+</body>
+</html>
