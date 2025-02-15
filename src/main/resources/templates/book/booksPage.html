@@ -3,6 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
+    <style>
+        .button {
+            border-radius: 10px;
+            color: white;
+            transition: .2s linear;
+            background: #0B63F6;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        .button:hover {
+            box-shadow: 2px 2px white, 4px 4px #FC63B5;
+            top: -4px;
+            left: -4px;
+        }
+    </style>
 </head>
 <body>
 <h2>Список всех книг:</h2>
@@ -19,7 +36,13 @@
 
 <div>
     <a href="/books?save">
-        <button>Добавить новую книгу</button>
+        <button class="button">Добавить новую книгу</button>
+    </a>
+</div>
+
+<div>
+    <a href="/">
+        <button class="button">Назад</button>
     </a>
 </div>
 </body>

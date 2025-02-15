@@ -1,6 +1,7 @@
 package com.example.librarymanagementsystem.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -113,7 +114,12 @@ public class User {
                '}';
     }
 
-    public enum Role {
-        USER, ADMIN
+    public enum Role implements GrantedAuthority {
+        USER, ADMIN;
+
+        @Override
+        public String getAuthority() {
+            return toString();
+        }
     }
 }
