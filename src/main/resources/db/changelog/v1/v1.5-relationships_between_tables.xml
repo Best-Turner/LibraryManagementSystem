@@ -1,0 +1,50 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="1.6" author="Aleksandr">
+
+        <addColumn tableName="books" schemaName="model">
+            <column name="user_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!--    связь  между книгами и пользователями-->
+    <changeSet id="1.7" author="Aleksandr">
+        <addForeignKeyConstraint baseTableSchemaName="model"
+                                 baseTableName="books"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_book_user"
+                                 referencedTableSchemaName="model"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+
+    <!--связь между автором и книгой-->
+    <changeSet id="1.8" author="Aleksandr">
+        <addForeignKeyConstraint baseTableSchemaName="model"
+                                 baseTableName="author_book"
+                                 baseColumnNames="author_id"
+                                 constraintName="fk_author_book_author"
+                                 referencedTableSchemaName="model"
+                                 referencedTableName="authors"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <!--связь между книгой и автором-->
+    <changeSet id="1.9" author="Aleksandr">
+        <addForeignKeyConstraint baseTableSchemaName="model"
+                                 baseTableName="author_book"
+                                 baseColumnNames="book_id"
+                                 constraintName="fk_author_book_book"
+                                 referencedTableSchemaName="model"
+                                 referencedTableName="books"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

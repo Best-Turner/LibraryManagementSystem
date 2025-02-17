@@ -1,0 +1,37 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="Aleksandr">
+        <sql>CREATE SCHEMA IF NOT EXISTS model</sql>
+    </changeSet>
+
+    <changeSet id="1.2" author="Aleksandr">
+        <sql>CREATE TYPE user_role AS ENUM('USER', 'ADMIN')</sql>
+        <createTable tableName="users" schemaName="model">
+            <column name="id"  type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="firstname" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="user_role">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birthday" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
