@@ -6,8 +6,8 @@ spring:
   application:
     name: LibraryManagementSystem
   datasource:
-    username: postgres
-    password: postgres
+    username: ${USER}
+    password: ${PASSWORD}
     url: jdbc:postgresql://localhost:5432/LibraryManager
   jpa:
     hibernate:
@@ -15,6 +15,7 @@ spring:
     show-sql: true
   liquibase:
     change-log: classpath:/db/changelog/main-changelog.xml
+
 
 logging:
   level:
