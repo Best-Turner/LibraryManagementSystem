@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2.3" author="Aleksandr">
+        <insert tableName="books" schemaName="model">
+            <column name="title" value="Война и мир"></column>
+            <column name="publicationDate" value="1869-01-01"></column>
+            <column name="genre" value="DRAMA"></column>
+            <column name="availability" value="true"></column>
+            <column name="pageCount" value="650"></column>
+        </insert>
+
+        <insert tableName="books" schemaName="model">
+            <column name="title" value="Преступление и наказание"></column>
+            <column name="publicationDate" value="1866-01-01"></column>
+            <column name="genre" value="ROMAN"></column>
+            <column name="availability" value="true"></column>
+            <column name="pageCount" value="485"></column>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>
