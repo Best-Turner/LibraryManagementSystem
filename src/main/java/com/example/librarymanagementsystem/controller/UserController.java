@@ -79,7 +79,9 @@ public class UserController {
             User user = existingUser.get();
             user.setFirstname(updatedUser.getFirstname());
             user.setLastname(updatedUser.getLastname());
-            user.setPassword(updatedUser.getPassword());
+            if (updatedUser.getPassword() != null) {
+                user.setPassword(updatedUser.getPassword());
+            }
             user.setBirthday(updatedUser.getBirthday());
             user.setRole(updatedUser.getRole());
             userRepository.save(user);
