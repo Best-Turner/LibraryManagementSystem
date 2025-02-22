@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@Table(name = "books")
+@Table(name = "books", schema = "model")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +16,7 @@ public class Book {
     private String title;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
+            schema = "model",
             name = "author_book",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
@@ -23,8 +24,10 @@ public class Book {
     private List<Author> author;
 
     private LocalDate publicationDate;
+    @Enumerated(EnumType.STRING)
     private Genre genre;
     private boolean availability;
+
     private int pageCount;
     @ManyToOne
     @JoinColumn(name = "user_id")

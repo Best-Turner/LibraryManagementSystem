@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Details</title>
@@ -28,14 +28,15 @@
         </div>
     </div>
 </div>
-
-<a th:href="@{/books/{id}/edit(id=${book.id})}">
+<div sec:authorize="hasAuthority('ADMIN')">
+<a th:href="@{/books/{id}/edit(id=${book.id})}" sec:authorize="hasAuthority('ADMIN')">
     <button type="submit">Изменить данную книгу</button>
 </a>
 <form th:action="@{/books/{id}(id=${book.id})}" th:method="DELETE"
       onsubmit="return confirm('Вы уверены, что хотите удалить эту книгу?');">
     <button type="submit">Удалить данную книгу</button>
 </form>
+</div>
 <a href="/books">
     <button>К списку книг</button>
 </a>

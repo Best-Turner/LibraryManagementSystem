@@ -1,12 +1,13 @@
 package com.example.librarymanagementsystem.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "model")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +17,7 @@ public class User {
     private String email;
     private String password;
     private LocalDate birthday;
+    @Enumerated(EnumType.STRING)
     private Role role;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Book> readsBooks;
@@ -113,7 +115,12 @@ public class User {
                '}';
     }
 
-    public enum Role {
-        USER, ADMIN
+    public enum Role implements GrantedAuthority {
+        USER, ADMIN;
+
+        @Override
+        public String getAuthority() {
+            return toString();
+        }
     }
 }

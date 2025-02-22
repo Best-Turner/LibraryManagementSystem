@@ -14,8 +14,8 @@
     <a th:href="@{/books/appoint}" id="author">Назначить автора
     </a><br>
 
-    <label for="publicationDate">Введите дату публикации:</label>
-    <input type="date" th:field="*{publicationDate}" id="publicationDate" name="publicationDate"><br>
+    <label for="publicationDate">Введите дату публикации.  Формат(01.12.1991):</label><br>
+    <input type="text" th:field="*{publicationDate}" id="publicationDate" name="publicationDate"><br>
 
     <label for="drama">Выберете жанр:</label>
     <select name="genre" id="drama">
@@ -23,6 +23,7 @@
             <option th:value="${gen}" th:text="${gen}"></option>
         </div>
     </select><br>
+    <label>Количество страниц:</label>
     <input type="number" th:field="*{pageCount}"><br>
     <div>
         <label>Сделать доступной сразу?</label><br>

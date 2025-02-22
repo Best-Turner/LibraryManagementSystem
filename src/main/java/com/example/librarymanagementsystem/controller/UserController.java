@@ -33,16 +33,17 @@ public class UserController {
         return "user/userById";
     }
 
-    @PostMapping
-    public String saveUser(@ModelAttribute("user") User user) {
-        userRepository.save(user);
-        return "redirect:/users";
-    }
+//    @PostMapping
+//    public String saveUser(@ModelAttribute("user") User user) {
+//        System.out.println("Сохраняем нового пользователя " + user);
+//        userRepository.save(user);
+//        return "redirect:/users";
+//    }
 
-    @GetMapping("/save")
+    @GetMapping("/register")
     public String showUserForm(Model model) {
         model.addAttribute("newUser", new User());
-        return "user/saveUser";
+        return "user/register";
     }
 
     @DeleteMapping("/{id}")
@@ -78,7 +79,9 @@ public class UserController {
             User user = existingUser.get();
             user.setFirstname(updatedUser.getFirstname());
             user.setLastname(updatedUser.getLastname());
-            user.setPassword(updatedUser.getPassword());
+            if (updatedUser.getPassword() != null) {
+                user.setPassword(updatedUser.getPassword());
+            }
             user.setBirthday(updatedUser.getBirthday());
             user.setRole(updatedUser.getRole());
             userRepository.save(user);
