@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
@@ -30,6 +33,7 @@ public class BookController {
 
     @GetMapping
     public String showBooks(@RequestParam(value = "save", required = false) String value,
+                            @RequestParam(value = "authorId", required = false) String authorId,
                             @SessionAttribute(value = "savedBook", required = false) Book book,
                             Model model) {
         if (value != null) {
@@ -39,7 +43,14 @@ public class BookController {
             }
             return "book/saveBook";
         }
-        model.addAttribute("books", bookRepository.findAll());
+        if (authorId != null) {
+            System.out.println(authorId);
+            long author = Long.parseLong(authorId);
+            Optional<List<Book>> books = bookRepository.findBookByAuthorId(author);
+            model.addAttribute("books", books.orElse(Collections.emptyList()));
+        } else {
+            model.addAttribute("books", bookRepository.findAll());
+        }
         return "book/booksPage";
     }
 

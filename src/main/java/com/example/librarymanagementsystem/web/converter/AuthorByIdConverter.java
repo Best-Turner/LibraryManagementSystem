@@ -20,7 +20,6 @@ public class AuthorByIdConverter implements Converter<String, Author> {
     @Override
     public Author convert(String source) {
         long id = Long.parseLong(source);
-        System.out.println("КОНВЕРТЕР СРАБОТАЛ");
         return repository.findById(id).orElse(null);
     }
 }

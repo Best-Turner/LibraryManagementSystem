@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о авторе</title>
+</head>
+<body>
+
+<div th:object="${author}" th:with="authorId = ${author.id}">
+    <span th:text="${author.id}"></span>
+    <span th:text="${author.firstname}"></span>
+    <span th:text="${author.lastname}"></span>
+    <a th:href="@{/books(authorId=${author.id})}">
+        <button>Книги автора</button>
+    </a>
+</div>
+</body>
+</html>
