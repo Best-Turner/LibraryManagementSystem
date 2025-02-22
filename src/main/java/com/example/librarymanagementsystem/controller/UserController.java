@@ -33,17 +33,17 @@ public class UserController {
         return "user/userById";
     }
 
-    @PostMapping
-    public String saveUser(@ModelAttribute("user") User user) {
+//    @PostMapping
+//    public String saveUser(@ModelAttribute("user") User user) {
+//        System.out.println("Сохраняем нового пользователя " + user);
+//        userRepository.save(user);
+//        return "redirect:/users";
+//    }
 
-        userRepository.save(user);
-        return "redirect:/users";
-    }
-
-    @GetMapping("/save")
+    @GetMapping("/register")
     public String showUserForm(Model model) {
         model.addAttribute("newUser", new User());
-        return "user/saveUser";
+        return "user/register";
     }
 
     @DeleteMapping("/{id}")

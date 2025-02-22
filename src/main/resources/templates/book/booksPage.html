@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
@@ -34,7 +34,7 @@
     <a th:href="@{/books/{id}(id=${book.id})}" th:text="${book.title}"></a>
 </div>
 
-<div>
+<div sec:authorize="hasAuthority('ADMIN')">
     <a href="/books?save">
         <button class="button">Добавить новую книгу</button>
     </a>

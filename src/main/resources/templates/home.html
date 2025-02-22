@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Library home</title>
@@ -14,6 +14,12 @@
 <a href="/users">
     <button>К списку пользователей</button>
 </a>
+<br/>
+<div sec:authorize="isAuthenticated()">
+    <a href="/logout">
+        <button>Выйти</button>
+    </a>
+</div>
 
 </body>
 </html>

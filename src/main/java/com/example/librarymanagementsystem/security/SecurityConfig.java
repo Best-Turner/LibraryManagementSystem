@@ -2,6 +2,7 @@ package com.example.librarymanagementsystem.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +23,10 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/").permitAll()
+                        request.requestMatchers("/", "/register").permitAll()
+                                .requestMatchers(HttpMethod.POST).hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE).hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.PATCH).hasAuthority("ADMIN")
                                 .anyRequest().authenticated())
                 .formLogin(form ->
                         form.loginPage("/login").permitAll()

@@ -9,5 +9,6 @@
     <include file="v2/v2-accumulate-changelog.xml" relativeToChangelogFile="true" />
     <include file="v3/v3.1-rename-columns-books.xml" relativeToChangelogFile="true"/>
     <include file="v3/v3.2-rename-column-users.xml" relativeToChangelogFile="true"/>
+    <include file="v3/v3.3-rename-column-books.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
