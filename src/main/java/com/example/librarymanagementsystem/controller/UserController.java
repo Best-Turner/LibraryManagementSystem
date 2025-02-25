@@ -33,12 +33,6 @@ public class UserController {
         return "user/userById";
     }
 
-//    @PostMapping
-//    public String saveUser(@ModelAttribute("user") User user) {
-//        System.out.println("Сохраняем нового пользователя " + user);
-//        userRepository.save(user);
-//        return "redirect:/users";
-//    }
 
     @GetMapping("/register")
     public String showUserForm(Model model) {
@@ -66,12 +60,7 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public String updateUser(@PathVariable("id") long id,
-                             @ModelAttribute("user") User updatedUser,
-                             BindingResult result) {
-//        if (result.hasErrors()) {
-//            System.out.println("Есть ошибки при изменении данных о пользовтеле");
-//            return "editUser"; // Если есть ошибки валидации, возвращаем форму с ошибками
-//        }
+                             @ModelAttribute("user") User updatedUser) {
         System.out.println("Пользователь который пришел из формы " + updatedUser);
 
         Optional<User> existingUser = userRepository.findById(id);

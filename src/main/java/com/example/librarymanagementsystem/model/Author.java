@@ -1,5 +1,6 @@
 package com.example.librarymanagementsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,12 +13,14 @@ public class Author {
     private long id;
     private String firstname;
     private String lastname;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "author_book",
-            joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id")
-    )
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "author")
+//    @JoinTable(
+//            schema = "model",
+//            name = "author_book",
+//            joinColumns = @JoinColumn(name = "author_id"),
+//            inverseJoinColumns = @JoinColumn(name = "book_id")
+//    )
+    @JsonIgnore
     private List<Book> works;
 
     public Author() {
